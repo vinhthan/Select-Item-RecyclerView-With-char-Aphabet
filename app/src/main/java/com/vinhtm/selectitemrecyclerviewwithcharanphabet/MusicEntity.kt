@@ -1,4 +1,4 @@
-package com.example.selectitemrecyclerviewwithcharanphabet
+package com.vinhtm.selectitemrecyclerviewwithcharanphabet
 
 import android.net.Uri
 

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.selectitemrecyclerviewwithcharanphabet"
+    namespace = "com.vinhtm.selectitemrecyclerviewwithcharanphabet"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.selectitemrecyclerviewwithcharanphabet"
+        applicationId = "com.vinhtm.selectitemrecyclerviewwithcharanphabet"
         minSdk = 24
         targetSdk = 33
         versionCode = 1

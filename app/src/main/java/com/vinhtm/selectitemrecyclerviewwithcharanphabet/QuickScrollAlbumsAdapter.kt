@@ -1,10 +1,10 @@
-package com.example.selectitemrecyclerviewwithcharanphabet
+package com.vinhtm.selectitemrecyclerviewwithcharanphabet
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.lge.usbvideo.databinding.QuickScrollItemBinding
+import com.vinhtm.selectitemrecyclerviewwithcharanphabet.databinding.QuickScrollItemBinding
 
 class QuickScrollAlbumsAdapter: RecyclerView.Adapter<QuickScrollAlbumsAdapter.QuickScrollItemViewholder>() {
 

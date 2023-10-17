@@ -1,31 +1,31 @@
-package com.example.selectitemrecyclerviewwithcharanphabet
+package com.vinhtm.selectitemrecyclerviewwithcharanphabet
 
-import android.content.Context
 import android.net.Uri
-import android.util.AttributeSet
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.example.selectitemrecyclerviewwithcharanphabet.databinding.LayoutAlbumsViewBinding
+import com.vinhtm.selectitemrecyclerviewwithcharanphabet.R
+import com.vinhtm.selectitemrecyclerviewwithcharanphabet.databinding.ActivityMainBinding
 
-class AlbumView(context: Context, attributeSet: AttributeSet? = null) :
-    BaseCustomView<LayoutAlbumsViewBinding>(context, attributeSet) {
+class MainActivity : AppCompatActivity() {
+    lateinit var binding: ActivityMainBinding
 
     private lateinit var mAdapterAlbums: AlbumsAdapter
     private lateinit var mAdapterQuickScrollAlbums: QuickScrollAlbumsAdapter
     private var scrolledByUser = false
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
 
-    companion object {
-        var isSelectCheckBox = false
-    }
 
-    override fun layoutRes(): Int = R.layout.layout_albums_view
-
-    override fun initView() {
         showAlbumsList()
-    }
 
+    }
 
     private fun showAlbumsList() {
         mAdapterAlbums = AlbumsAdapter()
@@ -59,6 +59,7 @@ class AlbumView(context: Context, attributeSet: AttributeSet? = null) :
         for (music in mAdapterAlbums.listAlbums) {
             charSet.add(music.album!![0])
         }
+
         mAdapterQuickScrollAlbums.dataList = charSet.toList()
         mAdapterQuickScrollAlbums.onQuickScrollSelected = { char, position ->
             val oldSelectedPos = mAdapterQuickScrollAlbums.selectedPos
@@ -67,7 +68,7 @@ class AlbumView(context: Context, attributeSet: AttributeSet? = null) :
             mAdapterQuickScrollAlbums.notifyItemChanged(position)
             val songPos = mAdapterAlbums.listAlbums.indexOfFirst { it.album!![0] == char }
             val smoothScroller: RecyclerView.SmoothScroller =
-                object : LinearSmoothScroller(context) {
+                object : LinearSmoothScroller(this) {
                     override fun getVerticalSnapPreference(): Int {
                         return SNAP_TO_START
                     }
@@ -105,26 +106,13 @@ class AlbumView(context: Context, attributeSet: AttributeSet? = null) :
 
         mAdapterAlbums.setOnClickItem(object : AlbumsAdapter.ItemOnClickAlbumsList {
             override fun onclickItem(position: Int) {
-                isSelectCheckBox = false
-                binding.layoutAlbums.visibility = View.GONE
-                binding.layoutInsideAlbums.visibility = View.VISIBLE
-                binding.tvAlbumTitleInside.text = mAdapterAlbums.listAlbums[position].album
+
             }
 
             override fun onClickCheckBox(position: Int) {
                 //show option left
-                /*binding.tabList.visibility = View.GONE
-                binding.tabSelected.visibility = View.VISIBLE*/
-                isSelectCheckBox = true
-
             }
         })
 
-        binding.imgBackAlbumInside.setOnClickListener {
-            binding.layoutAlbums.visibility = View.VISIBLE
-            binding.layoutInsideAlbums.visibility = View.GONE
-        }
-
     }
-
 }
